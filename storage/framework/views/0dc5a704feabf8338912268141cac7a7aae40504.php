@@ -1,30 +1,29 @@
-@extends('products.layout')
   
-@section('content')
+<?php $__env->startSection('content'); ?>
 <div class="row">
     <div class="col-lg-12 margin-tb">
         <div class="pull-left">
             <h2>Agregar Nuevo Registro</h2>
         </div>
         <div class="pull-right">
-            <a class="btn btn-primary" href="{{ route('products.index') }}"> Volver</a>
+            <a class="btn btn-primary" href="<?php echo e(route('products.index')); ?>"> Volver</a>
         </div>
     </div>
 </div>
    
-@if ($errors->any())
+<?php if($errors->any()): ?>
     <div class="alert alert-danger">
         <strong>Uuuups!</strong> Hubo problemas con los datos.<br><br>
         <ul>
-            @foreach ($errors->all() as $error)
-                <li>{{ $error }}</li>
-            @endforeach
+            <?php $__currentLoopData = $errors->all(); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $error): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                <li><?php echo e($error); ?></li>
+            <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
         </ul>
     </div>
-@endif
+<?php endif; ?>
    
-<form action="{{ route('products.store') }}" method="POST">
-    @csrf
+<form action="<?php echo e(route('products.store')); ?>" method="POST">
+    <?php echo csrf_field(); ?>
   
      <div class="row">
         <div class="col-xs-12 col-sm-12 col-md-12">
@@ -45,4 +44,5 @@
     </div>
    
 </form>
-@endsection
+<?php $__env->stopSection(); ?>
+<?php echo $__env->make('products.layout', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH /Users/andyg/SEMESTRAL/resources/views/products/create.blade.php ENDPATH**/ ?>
